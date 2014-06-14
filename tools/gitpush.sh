@@ -31,13 +31,13 @@ function push(){
 function getUpdate(){
     varname=$1;
     update=${varname:-"update"};
-    echo $update;
+    echo "$update";
 }
 
 function getMaster(){
     varname=$1;
     update=${varname:-"master"};
-    echo $update;
+    echo "$update";
 }
 
 varupdate=$(getUpdate $1);
