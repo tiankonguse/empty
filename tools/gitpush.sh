@@ -27,8 +27,25 @@ function push(){
     return 0;
 }
 
+
+function getUpdate(){
+    varname=$1;
+    update=${varname:-"update"};
+    echo $update;
+}
+
+function getMaster(){
+    varname=$1;
+    update=${varname:-"master"};
+    echo $update;
+}
+
+varupdate=$(getUpdate $1);
+varmaster=$(getMaster $2);
+
 pwd;
+#exit;
 add;
-commit "update";
-push "master";
+commit "$varupdate";
+push "$varmaster";
 
