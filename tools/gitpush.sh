@@ -29,22 +29,19 @@ function _push(){
 
 
 function _getUpdate(){
-    varname=$1;
-    ${varname:="update"};
-    echo $varname;
+    varname="$1";
+    l=${#varname};
+    if [ "$l" -eq "0" ];
+    then
+        varname="update";
+    fi
+    echo "$varname";
 }
 
-function _getMaster(){
-    varname=$1;
-    ${varname:="master"};
-    echo $varname;
-}
 
 varmaster="master";
 
-
 varupdate=$(_getUpdate "$1");
-#varmaster=$(_getMaster $2);
 
 _add;
 
