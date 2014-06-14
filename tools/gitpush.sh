@@ -7,17 +7,17 @@
 #!/bin/bash
 
 function add(){
-    $(git add -A);
+    git add -A;
     return 0;
 }
 
 function commit(){
-    $(git commit -m $1);
+    git commit -m $1;
     return 0;
 }
 
 function push(){
-    $(git push orign $1);
+    git push orign $1;
     return 0;
 }
 
