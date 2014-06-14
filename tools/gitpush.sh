@@ -12,12 +12,16 @@ function add(){
 }
 
 function commit(){
-    git commit -m $1;
+    cmd="git commit -m $1";
+    echo $cmd;
+    $($cmd);
     return 0;
 }
 
 function push(){
-    git push orign $1;
+    cmd="git push orign $1";
+    echo $cmd;
+    $($cmd);
     return 0;
 }
 
