@@ -21,7 +21,7 @@ function commit(){
 }
 
 function push(){
-    cmd="git push orign $1";
+    cmd="git push origin $1";
     echo $cmd;
     $cmd;
     return 0;
