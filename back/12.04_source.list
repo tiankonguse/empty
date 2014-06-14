@@ -1,0 +1,104 @@
+##国内源
+#这个北京交通大学的源也挺不错的，我们首选这个，速度很不错
+deb http://mirror.bjtu.edu.cn/ubuntu/ pangolin multiverse
+deb http://mirror.bjtu.edu.cn/ubuntu/ pangolin-updates restricted
+deb http://mirror.bjtu.edu.cn/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ pangolin-proposed universe main multiverse restricted #Added by software-properties
+deb http://mirror.bjtu.edu.cn/ubuntu/ pangolin-security universe main multiverse restricted
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ pangolin-security universe main multiverse restricted #Added by software-properties
+deb http://mirror.bjtu.edu.cn/ubuntu/ pangolin-backports main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ pangolin-backports main multiverse restricted universe #Added by software-properties
+
+#网易开源镜像站
+deb http://mirrors.163.com/ubuntu/ pangolin main universe restricted multiverse
+deb-src http://mirrors.163.com/ubuntu/ pangolin main universe restricted multiverse
+deb http://mirrors.163.com/ubuntu/ pangolin-security universe main multiverse restricted
+deb-src http://mirrors.163.com/ubuntu/ pangolin-security universe main multiverse restricted
+deb http://mirrors.163.com/ubuntu/ pangolin-updates universe main multiverse restricted
+deb http://mirrors.163.com/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb-src http://mirrors.163.com/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb http://mirrors.163.com/ubuntu/ pangolin-backports universe main multiverse restricted
+deb-src http://mirrors.163.com/ubuntu/ pangolin-backports universe main multiverse restricted
+deb-src http://mirrors.163.com/ubuntu/ pangolin-updates universe main multiverse restricted
+
+#Ubuntu 10.04更新源 -pangolin Lynx-中国源，提供
+deb http://mirror.lupaworld.com/ubuntu/ pangolin main universe restricted multiverse
+deb-src http://mirror.lupaworld.com/ubuntu/ pangolin main universe restricted multiverse
+deb http://mirror.lupaworld.com/ubuntu/ pangolin-security universe main multiverse restricted
+deb-src http://mirror.lupaworld.com/ubuntu/ pangolin-security universe main multiverse restricted
+deb http://mirror.lupaworld.com/ubuntu/ pangolin-updates universe main multiverse restricted
+deb http://mirror.lupaworld.com/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb-src http://mirror.lupaworld.com/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb http://mirror.lupaworld.com/ubuntu/ pangolin-backports universe main multiverse restricted
+deb-src http://mirror.lupaworld.com/ubuntu/ pangolin-backports universe main multiverse restricted
+deb-src http://mirror.lupaworld.com/ubuntu/ pangolin-updates universe main multiverse restricted
+
+#Ubuntu 10.04 台湾源，速度还可以，比国内某些源还快
+deb http://tw.archive.ubuntu.com/ubuntu/ pangolin main universe restricted multiverse
+deb-src http://tw.archive.ubuntu.com/ubuntu/ pangolin main universe restricted multiverse
+deb http://tw.archive.ubuntu.com/ubuntu/ pangolin-security universe main multiverse restricted
+deb-src http://tw.archive.ubuntu.com/ubuntu/ pangolin-security universe main multiverse restricted
+deb http://tw.archive.ubuntu.com/ubuntu/ pangolin-updates universe main multiverse restricted
+deb-src http://tw.archive.ubuntu.com/ubuntu/ pangolin-updates universe main multiverse restricted
+
+#搜狐开源镜像站
+deb http://mirrors.shlug.org/ubuntu/ pangolin main universe restricted multiverse
+deb-src http://mirrors.shlug.org/ubuntu/ pangolin main universe restricted multiverse
+deb http://mirrors.shlug.org/ubuntu/ pangolin-security universe main multiverse restricted
+deb-src http://mirrors.shlug.org/ubuntu/ pangolin-security universe main multiverse restricted
+deb http://mirrors.shlug.org/ubuntu/ pangolin-updates universe main multiverse restricted
+deb http://mirrors.shlug.org/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb-src http://mirrors.shlug.org/ubuntu/ pangolin-proposed universe main multiverse restricted
+deb http://mirrors.shlug.org/ubuntu/ pangolin-backports universe main multiverse restricted
+deb-src http://mirrors.shlug.org/ubuntu/ pangolin-backports universe main multiverse restricted
+deb-src http://mirrors.shlug.org/ubuntu/ pangolin-updates universe main multiverse restricted
+
+#来自台湾的国立交通大学的更新源，速度也还算可以：
+deb http://debian.nctu.edu.tw/ubuntu/ pangolin main restricted universe multiverse
+deb http://debian.nctu.edu.tw/ubuntu/ pangolin-security main restricted universe multiverse
+deb http://debian.nctu.edu.tw/ubuntu/ pangolin-updates main restricted universe multiverse
+deb http://debian.nctu.edu.tw/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb http://debian.nctu.edu.tw/ubuntu/ pangolin-backports main restricted universe multiverse
+deb-src http://debian.nctu.edu.tw/ubuntu/ pangolin main restricted universe multiverse
+deb-src http://debian.nctu.edu.tw/ubuntu/ pangolin-security main restricted universe multiverse
+deb-src http://debian.nctu.edu.tw/ubuntu/ pangolin-updates main restricted universe multiverse
+deb-src http://debian.nctu.edu.tw/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb-src http://debian.nctu.edu.tw/ubuntu/ pangolin-backports main restricted universe multiverse
+
+##国外源
+#新加坡国立大学理学院 ubuntu 更新源(所有用户通用），速度也还算可以：
+deb http://ftp.science.nus.edu.sg/ubuntu/ pangolin main restricted universe multiverse
+deb http://ftp.science.nus.edu.sg/ubuntu/ pangolin-security main restricted universe multiverse
+deb http://ftp.science.nus.edu.sg/ubuntu/ pangolin-updates main restricted universe multiverse
+deb http://ftp.science.nus.edu.sg/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb http://ftp.science.nus.edu.sg/ubuntu/ pangolin-backports main restricted universe multiverse
+deb-src http://ftp.science.nus.edu.sg/ubuntu/ pangolin main restricted universe multiverse
+deb-src http://ftp.science.nus.edu.sg/ubuntu/ pangolin-security main restricted universe multiverse
+deb-src http://ftp.science.nus.edu.sg/ubuntu/ pangolin-updates main restricted universe multiverse
+deb-src http://ftp.science.nus.edu.sg/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb-src http://ftp.science.nus.edu.sg/ubuntu/ pangolin-backports main restricted universe multiverse
+
+
+#来自日本的ubuntu 更新服务器 （全国用户通用），速度也还算可以：
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-security main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-updates main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-backports main restricted universe multiverse
+deb-src http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin main restricted universe multiverse
+deb-src http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-security main restricted universe multiverse
+deb-src http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-updates main restricted universe multiverse
+deb-src http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb-src http://ftp.jaist.ac.jp/pub/Linux/ubuntu/ pangolin-backports main restricted universe multiverse
+
+#来自澳大利亚 optus.net 的ubuntu 更新服务器 （全国通用，经测试速度挺快）：
+deb http://mirror.optus.net/ubuntu/ pangolin main restricted universe multiverse
+deb http://mirror.optus.net/ubuntu/ pangolin-security main restricted universe multiverse
+deb http://mirror.optus.net/ubuntu/ pangolin-updates main restricted universe multiverse
+deb http://mirror.optus.net/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb http://mirror.optus.net/ubuntu/ pangolin-backports main restricted universe multiverse
+deb-src http://mirror.optus.net/ubuntu/ pangolin main restricted universe multiverse
+deb-src http://mirror.optus.net/ubuntu/ pangolin-security main restricted universe multiverse
+deb-src http://mirror.optus.net/ubuntu/ pangolin-updates main restricted universe multiverse
+deb-src http://mirror.optus.net/ubuntu/ pangolin-proposed main restricted universe multiverse
+deb-src http://mirror.optus.net/ubuntu/ pangolin-backports main restricted universe multiverse
