@@ -32,6 +32,7 @@ function getUpdate(){
     varname=$1;
     update=${varname:-"update"};
     echo "$update";
+    return 0;
 }
 
 function getMaster(){
