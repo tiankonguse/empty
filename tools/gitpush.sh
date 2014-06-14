@@ -6,21 +6,21 @@
 #########################################################################
 #!/bin/bash
 
-function add(){
+function _add(){
     cmd="git add -A";
     echo $cmd;
     $cmd;
     return 0;
 }
 
-function commit(){
+function _commit(){
     cmd="git commit -m \"$1\"";
     echo $cmd;
     $cmd;
     return 0;
 }
 
-function push(){
+function _push(){
     cmd="git push origin $1";
     echo $cmd;
     $cmd;
@@ -28,25 +28,27 @@ function push(){
 }
 
 
-function getUpdate(){
+function _getUpdate(){
     varname=$1;
-    update=${varname:-"update"};
-    echo "$update";
-    return 0;
+    ${varname:="update"};
+    echo $varname;
 }
 
-function getMaster(){
+function _getMaster(){
     varname=$1;
-    update=${varname:-"master"};
-    echo "$update";
+    ${varname:="master"};
+    echo $varname;
 }
 
-varupdate=$(getUpdate $1);
-varmaster=$(getMaster $2);
+varmaster="master";
 
-echo $varupdate;
 
-add;
-commit "$varupdate";
-push "$varmaster";
+varupdate=$(_getUpdate "$1");
+#varmaster=$(_getMaster $2);
+
+_add;
+
+_commit "$varupdate";
+
+_push "$varmaster";
 
