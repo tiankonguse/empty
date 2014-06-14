@@ -7,45 +7,45 @@
 #!/bin/bash
 
 function _add(){
-    cmd="git add -A";
+    cmd='git add -A';
     echo $cmd;
-    $cmd;
+    $($cmd);
     return 0;
 }
 
 function _commit(){
-    cmd="git commit -m \"$1\"";
+    cmd='git commit -m \"$1\"';
     echo $cmd;
-    $cmd;
+    $($cmd);
     return 0;
 }
 
 function _push(){
-    cmd="git push origin $1";
+    cmd='git push origin $1';
     echo $cmd;
-    $cmd;
+    $($cmd);
     return 0;
 }
 
 
 function _getUpdate(){
-    varname="$1";
+    varname='$1';
     l=${#varname};
-    if [ "$l" -eq "0" ];
+    if [ '$l' -eq "0" ];
     then
-        varname="update";
+        varname='update';
     fi
-    echo "$varname";
+    echo '$varname';
 }
 
 
-varmaster="master";
+varmaster='master';
 
-varupdate=$(_getUpdate "$1");
+varupdate=$(_getUpdate '$1');
 
 _add;
 
-_commit "$varupdate";
+_commit '$varupdate';
 
-_push "$varmaster";
+_push '$varmaster';
 
