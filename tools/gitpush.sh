@@ -43,8 +43,6 @@ function getMaster(){
 varupdate=$(getUpdate $1);
 varmaster=$(getMaster $2);
 
-pwd;
-#exit;
 add;
 commit "$varupdate";
 push "$varmaster";
