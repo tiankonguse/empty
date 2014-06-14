@@ -12,7 +12,7 @@ function add(){
 }
 
 function commit(){
-    cmd="git commit -m $1";
+    cmd="git commit -m \"$1\"";
     echo $cmd;
     $($cmd);
     return 0;
