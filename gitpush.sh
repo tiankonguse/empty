@@ -7,7 +7,9 @@
 #!/bin/bash
 
 function add(){
-    git add -A;
+    cmd="git add -A";
+    echo $cmd;
+    $cmd;
     return 0;
 }
 
@@ -21,7 +23,7 @@ function commit(){
 function push(){
     cmd="git push orign $1";
     echo $cmd;
-    $($cmd);
+    $cmd;
     return 0;
 }
 
