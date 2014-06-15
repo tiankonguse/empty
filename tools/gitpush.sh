@@ -7,23 +7,17 @@
 #!/bin/bash
 
 function _add(){
-    cmd="git add -A";
-    echo $cmd;
-    $cmd;
+    git add -A;
     return 0;
 }
 
 function _commit(){
-    cmd="git commit -m '$1'";
-    echo $cmd;
-    $cmd;
+    git commit -m "$1";
     return 0;
 }
 
 function _push(){
-    cmd="git push origin $1";
-    echo $cmd;
-    $cmd;
+    git push origin $1;
     return 0;
 }
 
