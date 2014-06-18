@@ -12,7 +12,9 @@ function _add(){
 }
 
 function _commit(){
-    git commit -m "$1";
+    cmd="git commit -m \"$1\"";
+    eval $cmd;
+    #git commit -m `$1`;
     return 0;
 }
 

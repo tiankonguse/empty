@@ -6,9 +6,9 @@
 #########################################################################
 #!/bin/bash
 
-select=$1;
 
 declare -i nameNum;
+i=$1;
 nameNum=0;
 
 # declare show name
@@ -59,14 +59,27 @@ function usage(){
         echo "$i :  ${names[$i]}";
         i=$(($i+1));
     done
+    echo "q : exit";
 }
 
+if [[ $i =~ ^[0-9]+$ ]]&&[[ $i < $nameNum ]]
+then
+    eval ${commands[$i]};
+    exit;
+fi
 
+
+while [ 1 -eq 1 ];
+do
+    
 usage;
 
-
-
 read i;
+
+if [ "_"$i == "_q" ];
+then
+    exit;
+fi
 
 if [[ $i =~ ^[0-9]+$ ]]&&[[ $i < $nameNum ]]
 then
@@ -78,4 +91,5 @@ else
 fi
 
 
+done
 
