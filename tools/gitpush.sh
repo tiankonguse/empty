@@ -8,7 +8,7 @@
 
 function _add(){
     cmd="git add -A";
-    echo "eval $cmd";
+    echo "===>$cmd";
     eval $cmd;
     #git add -A;
     return 0;
@@ -16,7 +16,7 @@ function _add(){
 
 function _commit(){
     cmd="git commit -m \"$1\"";
-    echo "eval $cmd";
+    echo "==＝>$cmd";
     eval $cmd;
     #git commit -m `$1`;
     return 0;
@@ -24,11 +24,12 @@ function _commit(){
 
 function _push(){
     cmd="git push origin $1";
-    echo "eval $cmd";
+    echo "===>$cmd";
     eval $cmd;
     #git push origin $1;
     return 0;
 }
+
 
 
 function _getUpdate(){
@@ -41,14 +42,26 @@ function _getUpdate(){
     echo "$varname";
 }
 
+function _getMaster(){
+    varname="$1";
+    l=${#varname};
+    if [ "$l" -eq "0" ] ;
+    then
+        varname="master"
+    fi
+    echo "$varname";
+}
 
-varmaster="master";
 
 varupdate=$(_getUpdate "$1");
+
+varmaster=$(_getMaster "$2");
 
 _add;
 
 _commit "$varupdate";
 
 _push "$varmaster";
+
+_push "--tag";
 
