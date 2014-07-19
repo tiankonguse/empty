@@ -1,0 +1,64 @@
+#!/bin/expect   
+#首行指定用来执行该脚本的命令程序
+
+if {$argc<4} {  
+    send_user "usage: $argv0  username hostname port password\n" ;
+    exit;
+}   
+#send_user命令用来显示使用帮助信息到父进程(一般为用户的shell)的标准输出。   
+
+set timeout 10
+
+#用来获得脚本的执行参数(其保存在数组$argv中，从0号开始是参数)
+set username [lindex $argv 0 ]  
+set hostname [lindex $argv 1 ]  
+set port [lindex $argv 2 ]  
+set password [lindex $argv 3 ]  
+
+# eval command
+spawn ssh  $username@$hostname -p $port
+
+#一旦在输出中出现expect string, 对于其他不匹配的信息则会完全忽略。
+#eof字符代表当前expect结束。
+
+# expect 可以有多种形式
+# 1. expect
+#	 {
+#		"expect string"
+#		send "input";
+#	 }
+#
+# 2. expect 
+#	 "expect string"
+#	 {
+#       send "input";
+#    }
+#
+# 3. expect 
+#	    "expect string"
+#		send "input";
+#	 expect eof
+#
+#  expect 可以嵌套。
+#
+#   exp_continue;接着期望输入
+#
+
+expect {
+	"*yes/no*"   
+    { 
+        send "yes\r"; 
+        expect "*password*"
+
+#{
+            send "$password\r"
+#}
+		expect eof 
+        # exp_continue 
+    }
+	"*password:" { send "$password\r" }
+}
+
+interact
+
+exit  
