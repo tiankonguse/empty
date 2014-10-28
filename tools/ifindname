@@ -1,0 +1,11 @@
+#########################################################################
+# File Name: ifindname.sh
+# Author: tiankonguse(skyyuan)
+# mail: i@tiankonguse.com
+# Created Time: Mon Jul 28 14:21:42 2014
+#########################################################################
+#!/bin/bash
+
+find -name "$*";
+
+
