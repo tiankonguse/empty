@@ -1,0 +1,3 @@
+":"; exec mzscheme -r $0 "$@"
+(display "Hello, World!")
+(newline)

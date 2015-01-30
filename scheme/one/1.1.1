@@ -1,0 +1,44 @@
+":"; exec mzscheme -r $0 "$@"
+
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(run '468)
+
+(run '(+ 137 249))
+
+(run '(* 5 99))
+
+(run '(/ 10 5))
+
+(run '(+ 2.7 10))
+
+(run '(+ 21 35 12 7))
+
+
+(run '(* 25 4 12))
+
+(run '(+ (* 3 5) (- 10 6)))
+
+
+(run '(+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6)))
+
+
+(run '(+ (* 3 
+            (+ (* 2 4) 
+               (+ 3 5))) 
+         (+ (- 10 7) 
+            6)))
+
+
+
+
+

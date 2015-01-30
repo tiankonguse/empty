@@ -1,0 +1,31 @@
+":"; exec mzscheme -r $0 "$@"
+
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(run '(define size 2))
+
+(run 'size)
+
+(run '(* 5 size))
+
+(run '(define pi 3.14159))
+
+
+(run '(define radius 10))
+
+(run '(* pi (* radius radius)))
+
+(run '(define circumference (* 2 pi radius)))
+
+(run 'circumference)
+
+
