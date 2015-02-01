@@ -1,0 +1,63 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+
+(run '(define (p) (p)))
+
+(run '(define (test x y)
+        (if (= x 0) 0 y)
+        ))
+
+(run '(test 0 p))
+
+(print "(run '(test 0 (p))) 就不执行了，执行了我们也不知道是什么序的，因为我们不知道结论")
+
+
+(print "我们需要先弄清楚一件事:什么是正则序，什么是应用序")
+
+(print "对于应用序， 很容易理解，调用函数前，前求参数的值， 即从内向外求值")
+
+(print "于是会先求 (p)， 而求 p 函数的时候， 又会执行(p), 故在调用函数 test 的时候就会死循环了")
+
+
+(print "而正则序则是从外向内的， 即先不管参数是什么， 先套到函数内再说， 这样一直套下去。")
+
+(print "于是正则序会先展开下面函数")
+(print "   (test 0 (p))")
+(print "=> (if (= 0 0) 0 (p))")
+(print "这里有个问题是 (p) 正则序会展开吗?")
+(print "由于 (p) 是函数，可以展开，所以应该可以展开的，所以也是死循环了")
+
+(print "所以不管正则序还是应用序，都会死循环吧")
+
+(print "不过展开或者求值的位置不一样, 应用序会在调用 test 函数时求值，而正则序会在test函数里面展开")
+
+(print "所以我们在 test 函数里面输出一些东西就知道什么序了")
+
+(print "另外，由于两个都会死循环，我们不知道死循环前，我们在test里面的输出会不会输出，所以我们需要一种不管什么情况都能进入test函数的测试程序，改造如下")
+
+
+(print "如果是应用序， 则输出0，否则死循环")
+
+(run '(define (test x y)
+        (if (= x 0) 0 (y))
+        ))
+
+(run '(test 0 p))
+
+

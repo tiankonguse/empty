@@ -1,0 +1,175 @@
+":"; exec mzscheme -r $0 "$@"
+
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+(print "1.1.1")
+
+(run '468)
+
+(run '(+ 137 249))
+
+(run '(* 5 99))
+
+(run '(/ 10 5))
+
+(run '(+ 2.7 10))
+
+(run '(+ 21 35 12 7))
+
+
+(run '(* 25 4 12))
+
+(run '(+ (* 3 5) (- 10 6)))
+
+
+(run '(+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6)))
+
+
+(run '(+ (* 3 
+            (+ (* 2 4) 
+               (+ 3 5))) 
+         (+ (- 10 7) 
+            6)))
+
+(print "1.1.2")
+
+(run '(define size 2))
+
+(run 'size)
+
+(run '(* 5 size))
+
+(run '(define pi 3.14159))
+
+
+(run '(define radius 10))
+
+(run '(* pi (* radius radius)))
+
+(run '(define circumference (* 2 pi radius)))
+
+(run 'circumference)
+
+
+(print "1.1.3")
+
+(run '(* (+ 2 (* 4 6))
+         (+ 3 5 7)
+         ))
+
+
+(print "1.1.4")
+
+(run '(define (square x) (* x x)))
+
+(run '(square 21))
+
+(run '(square (+ 2 5)))
+
+(run '(square (square 3)))
+
+(run '(define (sum-of-squares x y)
+        (+ (square x) (square y))))
+
+
+(run '(sum-of-squares 3 4))
+
+
+
+(run '(define (f a)
+        (sum-of-squares (+ a 1) (* a 2))
+        ))
+
+(run '(f 5))
+
+(print "1.1.5")
+
+
+(print "代换模型")
+
+(print "正则序 与 应用序")
+
+
+
+(print "1.1.6")
+
+(run '(define (abs x)
+        (cond ((> x 0) x)
+              ((= x 0) 0)
+              ((< x 0) (-x))
+              )
+        ))
+
+
+
+(run '(define (abs x)
+  (cond ((< x 0) (- x))
+        (else x)
+        )
+  ))
+
+
+(run '(define (abs x)
+        (if (< x 0)
+          (- x)
+          x
+          )
+        ))
+
+
+
+(run '(define (>= x y)
+        (or (x > x y) (= x y))
+        ))
+
+(run '(define (>= x y)
+        (not (< x y))
+        ))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

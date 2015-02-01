@@ -1,0 +1,75 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+
+(print "first")
+
+(run '(define (sum-of-max-two-number x y z)
+        (cond ((and (< x y) (< x z)) (+ y z))
+              ((and (< y x) (< y z)) (+ x z))
+              (else (+ x y)))
+        ))
+
+(run '(sum-of-max-two-number 1 2 3))
+
+
+(run '(sum-of-max-two-number -3 -1 -9))
+
+(run '(sum-of-max-two-number -9 21 -9))
+
+
+(print "second")
+
+
+(run '(define (sum-of-max-two-number x y z)
+        (define (max x y)
+          (if (> x y) x y)
+          )
+        (if (> x y) 
+          (max (+ x y) (+ z x))
+          (max (+ x y) (+ z y))
+          )
+        ))
+
+
+(run '(sum-of-max-two-number 1 2 3))
+
+
+(run '(sum-of-max-two-number -3 -1 -9))
+
+(run '(sum-of-max-two-number -9 21 -9))
+
+
+(print "third")
+
+
+
+(run '(define (sum-of-max-two-number x y z)
+        (define (max-two x y)
+          (if (> x y) x y))
+        (define (max-three x y z)
+          (max-two (max-two x y) z))
+        (max-three (+ x y) (+ x z) (+ y z))
+        ))
+
+(run '(sum-of-max-two-number 1 2 3))
+
+(run '(sum-of-max-two-number -3 -1 -9))
+
+(run '(sum-of-max-two-number -9 21 -9))
+
