@@ -1,0 +1,66 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+(run '(define (square x) (* x x)))
+(run '(define (cube x) (* x x *)))
+
+(run '(define (good-enough? pre-guess guess)
+        (if (= guess 0) 
+            (= 0 0)
+            (< (/ (abs (- guess  pre-guess)) guess) 0.001)
+          )
+        )
+     )
+
+(run '(define (improve x y)
+        (/ (+ (/ x (square y)) (* 2 y)) 3)       
+        ))
+
+(run '(define (curt-iter pre-guess guess x)
+        ;(display x)
+        ;(display "\t")
+        ;(display guess)
+        ;(newline)
+        (if (good-enough? pre-guess guess)
+          guess
+          (curt-iter guess (improve x guess)
+                     x)
+          )
+        ))
+
+(run '(define (curt x)
+        (curt-iter 2.0 1.0 x)
+        )
+     )
+
+(run '(curt 27))
+(run '(curt 0))
+(run '(curt 1))
+
+(run '(curt 0.001))
+
+(run '(curt 2.434e+31))
+
+(run '(curt 2.434e+30))
+
+
+
+
+
+
+

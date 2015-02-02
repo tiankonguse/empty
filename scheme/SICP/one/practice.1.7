@@ -1,0 +1,124 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+(print "很大的数和很小的数像这样")
+
+(run '(define (square x) (* x x)))
+
+(run '(define (good-enough? guess x)
+        (< (abs (- (square guess) x)) 0.001)
+        )
+     )
+
+(run '(define (average x y)
+        (/ (+ x y) 2)
+        ))
+
+(run '(define (improve guess x)
+        (average guess (/ x guess))
+        )
+     )
+
+(run '(define (sqrt-iter guess x)
+        (display x)
+        (display "\t")
+        (display guess)
+        (newline)
+        (if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x)
+                     x)
+          )
+        ))
+
+(run '(define (sqrt x)
+        (sqrt-iter 1.0 x)
+        )
+     )
+
+(run '(sqrt 0.00001))
+
+(print "0.00001 开方的答案是 0.03135649010771716")
+
+(run '(sqrt 2.434e+31))
+
+(print "2.434e+31 开方是 4933558553417604.0")
+
+
+(print "(sqrt 2.434e+30)")
+
+(print "但是 2.434e+30 开方却迟迟没有跑出来")
+
+(print "但是第二个数比第一个数小才对呀，这是什么回事呢？，感兴趣的同学可以把递归输出一下看看就知道了")
+
+(print "输出的同学可能会注意到，guess 猜到 1560128199860511.5 后就不会变了， 由于数较大，不能表示较小的精度")
+
+(print "所以我们非常有必要找到一个与精度无关的开方函数")
+
+
+
+(run '(define (square x) (* x x)))
+
+(run '(define (good-enough? pre-guess guess x)
+        (if (= guess 0) 
+            (= 0 0)
+            (< (/ (abs (- guess  pre-guess)) guess) 0.001)
+          )
+        )
+     )
+
+(run '(define (average x y)
+        (/ (+ x y) 2)
+        ))
+
+(run '(define (improve guess x)
+        (average guess (/ x guess))
+        )
+     )
+
+(run '(define (sqrt-iter pre-guess guess x)
+        (display x)
+        (display "\t")
+        (display guess)
+        (newline)
+        (if (good-enough? pre-guess guess x)
+          guess
+          (sqrt-iter guess (improve guess x)
+                     x)
+          )
+        ))
+
+(run '(define (sqrt x)
+        (sqrt-iter 2.0 1.0 x)
+        )
+     )
+
+(run '(sqrt 0.00001))
+
+(run '(sqrt 2.434e+31))
+
+(run '(sqrt 2.434e+30))
+
+(print "现在再算一下精度， 发现精度高了很多很多")
+
+
+
+
+
+
+

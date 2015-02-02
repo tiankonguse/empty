@@ -1,0 +1,102 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+
+(run '(define (new-if predicate then-clause else-clause)
+        (cond (predicate then-clause)
+              (else else-clause))
+        ))
+
+(run '(new-if (= 2 3) 0 5))
+
+(run '(new-if (= 1 1) 0 5))
+
+(run '(define (square x) (* x x)))
+
+(run '(define (good-enough? guess x)
+        (< (abs (- (square guess) x)) 0.001)
+        )
+     )
+
+(run '(define (average x y)
+        (/ (+ x y) 2)
+        ))
+
+(run '(define (improve guess x)
+        (average guess (/ x guess))
+        )
+     )
+
+(run '(define (sqrt-iter guess x)
+        (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x)
+                     x)
+          )
+        ))
+
+(run '(define (sqrt x)
+        (sqrt-iter 1.0 x)
+        )
+     )
+
+(print "这样将会发生死循环")
+
+(print "因为默认解释器是应用序的，即先求值，后调用函数")
+
+(print "这样，就是先求第三个参数 sqrt-iter, 而 sqrt-iter 是递归的")
+
+(print "解决方法是传进去一个函数和一个标志位")
+
+(print "if 语句先判断标志位，如果是函数，则调用函数")
+
+
+(run '(define (new-if predicate then-clause else-clause first second)
+        (define (ret fun? val)
+          (cond ((= fun? 1) (val))
+                (else val)
+                )
+          )
+        (cond (predicate (ret first then-clause))
+              (else (ret second else-clause)))
+        ))
+
+(run '(new-if (= 2 3) 0 5 0 0))
+
+(run '(new-if (= 1 1) 0 5 0 0))
+
+(run '(define (sqrt-iter guess x)
+        (define (wrap-sqrt-iter)
+          (sqrt-iter (improve guess x) x)
+          )
+        (new-if (good-enough? guess x) guess wrap-sqrt-iter 0 1)
+        ))
+
+
+(run '(define (sqrt x)
+        (sqrt-iter 1.0 x)
+        )
+     )
+
+(run '(sqrt 9))
+
+
+(print "这样的缺点是我们需要手动指定参数是不是函数")
+
+(print "也就是说我们通过额外的参数延迟了表达式的展开时间")
+
