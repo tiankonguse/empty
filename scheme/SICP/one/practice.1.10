@@ -1,0 +1,54 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+)
+
+(run '(define (A x y)
+        (cond ((= y 0) 0)
+              ((= x 0) (* 2 y))
+              ((= y 1) 2)
+              (else (A (- x 1)
+                       (A x (- y 1))
+                       ))
+              )
+        ))
+
+
+(run '(A 1 10))
+(run '(A 2 4))
+(run '(A 3 3))
+
+
+(run '(define (f n) (A 0 n)))
+(print "x=0 时， 结果是 2y")
+(run '(A 0 1))
+(run '(A 0 5))
+(run '(A 0 9))
+
+(run '(define (g n) (A 1 n)))
+(print "x=1 时，结果是 2 的 y 次方")
+(run '(A 1 10))
+(run '(A 1 5))
+(run '(A 1 1))
+
+(run '(define (h n) (A 2 n)))
+(print "x=2 时， 为2的幂上幂，次数时y， 即 2^2^2^2 ... ^ 2, 共y次")
+(run '(A 2 4))
+
+
+(print "")
+(run '(A 3 3))
+
+

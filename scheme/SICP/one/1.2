@@ -1,0 +1,62 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+  (newline)
+)
+
+(print "1.2.1")
+
+
+
+(run '(define (factorial n)
+        (if (= n 1)
+          1
+          (* n (factorial (- n 1)))
+          )
+        ))
+
+
+(run '(factorial 6))
+
+(run '(define (factorial n) (fact-iter 1 1 n)))
+
+(run '(define (fact-iter product counter max-count)
+        (if (> counter max-count)
+          product
+          (fact-iter (* counter product) (+ counter 1) max-count)
+          )
+        ))
+
+(run '(factorial 6))
+
+
+
+(run '(define (factorial n)
+        (define (iter product counter)
+          (if (> counter n)
+            product
+            (iter (* counter product) (+ counter 1))
+            )
+          )
+        (iter 1 1)
+        ))
+
+
+(run '(factorial 6))
+
+
+
+
+

@@ -1,0 +1,71 @@
+":"; exec mzscheme -r $0 "$@"
+
+(define (run cmd)
+    (display cmd)
+    (newline)
+    (display "=>")
+    (display (eval cmd))
+    (newline)
+    (newline)
+  )
+
+
+(define (print argv)
+  (display argv)
+  (newline)
+)
+
+
+(run '(define (+ a b)
+        (if (= a 0)
+          b
+          (inc (+ (dec a) b))
+          )
+        ))
+
+(print "这个是递归的， inc 需要等待 里面的 + 运算完成之后才能调用")
+(print "第一个展开如下")
+
+
+(print '(+ 4 5))
+(print '(inc (+ (dec 4) 5)))
+(print '(inc (+ 3 5)))
+(print '(inc (inc (+ (dec 3) 5))))
+(print '(inc (inc (+ 2 5))))
+(print '(inc (inc (inc (+ (dec 2) 5)))))
+(print '(inc (inc (inc (+ 1 5)))))
+(print '(inc (inc (inc (inc (+ (dec 1) 5))))))
+(print '(inc (inc (inc (inc (+ 0 5))))))
+(print '(inc (inc (inc (inc 5)))))
+(print '(inc (inc (inc 6))))
+(print '(inc (inc 7)))
+(print '(inc 8))
+(print '9)
+
+
+
+
+(run '(define (+ a b)
+        (if (= a 0)
+          b
+          (+ (dec a) (inc b))
+          )
+        ))
+(print "这个是迭代的， dec 和 inc 都是基本操作， 所以直接返回的是 + 的展开。")
+
+(print "第二个展开如下")
+
+(print '(+ 4 5))
+(print '(+ (dec 4) (inc 5)))
+(print '(+ 3 6))
+(print '(+ (dec 3) (inc 6)))
+(print '(+ 2 7))
+(print '(+ (dec 2) (inc 7)))
+(print '(+ 1 8))
+(print '(+ (dec 1) (inc 8)))
+(print '(+ 0 9))
+(print '9)
+
+
+
+
