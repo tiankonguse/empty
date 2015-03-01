@@ -15,6 +15,15 @@
 using namespace std;
 
 
+#define NUM_PARAMS(...) NUM_PARAMS_OUTER(__VA_ARGS__, NUM_PARAMS_EXTEND())
+#define NUM_PARAMS_OUTER(...) NUM_PARAMS_INTER(__VA_ARGS__)
+#define NUM_PARAMS_INTER( _1, _2, _3, _4, _5, _6, _7, _8, _9,_10, _11,_12,_13,_14,_15,_16, N, ...) N
+#define NUM_PARAMS_EXTEND() 16,15,14,13,12,11,10, 9,8,7,6,5,4,3,2,1,0
+
+#define TYPE_LIST(...) TYPE_LIST_N(NUM_PARAMS(__VA_ARGS__), __VA_ARGS__)
+#define TYPE_LIST_N(n,...) TYPE_LIST_N_FIX(n, __VA_ARGS__)
+#define TYPE_LIST_N_FIX(n, ...) TYPE_LIST##n(__VA_ARGS__)
+
 
 template <typename _T, typename _U>
 struct type_list {
@@ -139,14 +148,14 @@ struct Func {
 };
 
 void sixPointFun() {
-    functor<int, TYPE_LIST1(int)>cmd1( testPointFun );
+    functor<int, TYPE_LIST(int)>cmd1( testPointFun );
     cmd1(1);
 
     Func obj;
-    functor<int, TYPE_LIST1(int)>cmd2(obj);
+    functor<int, TYPE_LIST(int)>cmd2(obj);
     cmd2( 2 );
 
-    functor<int, TYPE_LIST2(int,int)>cmd3( testPointFunTwo );
+    functor<int, TYPE_LIST(int,int)>cmd3( testPointFunTwo );
     cmd3(1,2);
 }
 

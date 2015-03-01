@@ -28,22 +28,19 @@ using namespace std;
 #define EMPTY_PARAMS_INTER( _1, _2, _3, _4, _5, _6, _7, _8, _9,_10, _11,_12,_13,_14,_15,_16, N, ...) N
 #define EMPTY_PARAMS_EXTEND() 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
 
-#define STRING(s) REAL_STRING(s)
-#define REAL_STRING(s) #s
 
-#define CONNECT(a, b) REAL_CONNECT(a,b)
-#define REAL_CONNECT(a,b) a##b
+#define TYPE_LIST(...) TYPE_LIST_N(NUM_PARAMS(__VA_ARGS__), __VA_ARGS__)
+#define TYPE_LIST_N(n,...) TYPE_LIST_N_FIX(n, __VA_ARGS__)
+#define TYPE_LIST_N_FIX(n, ...) TYPE_LIST##n(__VA_ARGS__)
 
-#define TEST_NUM1(a) a
-#define TEST_NUM2(a,b)  CONNECT(a, b)
-#define TEST_NUM3(a,b,c) CONNECT(TEST_NUM2(a,b), c)
+#define TYPE_LIST0(...) null_type
+#define TYPE_LIST1(T1, ... ) type_list<T1, TYPE_LIST_HELP(NUM_PARAMS(__VA_ARGS__),__VA_ARGS__)>
+#define TYPE_LIST_HELP(n,...) TYPE_LIST_HELP_FIX(n, __VA_ARGS__)
+#define TYPE_LIST_HELP_FIX(n, ...)  TYPE_LIST(__VA_ARGS__)
 
 
-#define TEST_NUM(...) TEST_NUM_N(NUM_PARAMS(__VA_ARGS__), __VA_ARGS__)
-#define TEST_NUM_N(n,...) TEST_NUM_N_FIX(n, __VA_ARGS__)
-#define TEST_NUM_N_FIX(n, ...) TEST_NUM##n(__VA_ARGS__)
 
 int main() {
-   printf("%s\n",STRING(TEST_NUM(1,2)));
+
     return 0;
 }
