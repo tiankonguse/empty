@@ -48,7 +48,9 @@ function _getMaster(){
 
 
 function _pull(){
-    git pull origin master;
+    cmd="git pull origin master";
+    echo "===>$cmd";
+    eval $cmd;
 }
 
 varupdate=$(_getUpdate "$1");
