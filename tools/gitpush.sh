@@ -47,9 +47,16 @@ function _getMaster(){
 }
 
 
+function _pull(){
+    git pull origin master;
+}
+
 varupdate=$(_getUpdate "$1");
 
 varmaster=$(_getMaster "$2");
+
+
+_pull;
 
 _add;
 
