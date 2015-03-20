@@ -33,6 +33,9 @@ useragent = {
     'X-Forwarde-For':'127.0.0.1'
 }
 
+#field_names = [ i[0] for i in cur.description ]
+#d = dict(zip(field_names, list(x)))
+
 PROXY = {
     "ip" : "127.0.0.1",
     "port" : 7070
