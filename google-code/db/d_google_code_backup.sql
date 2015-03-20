@@ -53,17 +53,7 @@ CREATE TABLE IF NOT EXISTS `d_google_code_backup`.`t_prj_lable` (
   `c_prj_name` VARCHAR(45) NOT NULL,
   `c_lable_name` VARCHAR(45) NOT NULL,
   INDEX `fk_t_prj_lable_t_project_idx` (`c_prj_name` ASC),
-  INDEX `fk_t_prj_lable_t_lable1_idx` (`c_lable_name` ASC),
-  CONSTRAINT `fk_t_prj_lable_t_project`
-    FOREIGN KEY (`c_prj_name`)
-    REFERENCES `d_google_code_backup`.`t_project` (`c_name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_t_prj_lable_t_lable1`
-    FOREIGN KEY (`c_lable_name`)
-    REFERENCES `d_google_code_backup`.`t_lable` (`c_name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `fk_t_prj_lable_t_lable1_idx` (`c_lable_name` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -78,17 +68,7 @@ CREATE TABLE IF NOT EXISTS `d_google_code_backup`.`t_prj_user` (
   `c_type` INT NOT NULL DEFAULT 0 COMMENT '0 project\n1 own',
   PRIMARY KEY (`c_id`),
   INDEX `fk_t_prj_user_t_project1_idx` (`c_prj_name` ASC),
-  INDEX `fk_t_prj_user_t_user1_idx` (`c_user_name` ASC),
-  CONSTRAINT `fk_t_prj_user_t_project1`
-    FOREIGN KEY (`c_prj_name`)
-    REFERENCES `d_google_code_backup`.`t_project` (`c_name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_t_prj_user_t_user1`
-    FOREIGN KEY (`c_user_name`)
-    REFERENCES `d_google_code_backup`.`t_user` (`c_name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `fk_t_prj_user_t_user1_idx` (`c_user_name` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
