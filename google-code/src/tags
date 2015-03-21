@@ -1,0 +1,39 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CHECKOUT_URL	download_lable.py	/^CHECKOUT_URL = 'https:\/\/code.google.com\/p\/%s\/source\/checkout'$/;"	v
+CLONE_URL	download_lable.py	/^CLONE_URL = 'https:\/\/code.google.com\/r\/%s\/source\/clones'$/;"	v
+GOOGLE_CODE_DBCFG	download_lable.py	/^GOOGLE_CODE_DBCFG = {$/;"	v
+HOME_URL	download_lable.py	/^HOME_URL = 'https:\/\/code.google.com\/p\/%s\/'$/;"	v
+PROXY	download_lable.py	/^PROXY = {$/;"	v
+connectLableProject	download_lable.py	/^def connectLableProject(lableName, prjName, ret):$/;"	f
+download	download_lable.py	/^def download(info, ret):$/;"	f
+fetchCheckoutInfo	download_lable.py	/^    def fetchCheckoutInfo(prjInfo, ret):$/;"	f	function:runProject
+fetchCloneInfo	download_lable.py	/^    def fetchCloneInfo(prjInfo, ret):$/;"	f	function:runProject
+fetchHomeInfo	download_lable.py	/^    def fetchHomeInfo(prjInfo, ret):$/;"	f	function:runProject
+fetchPrjList	download_lable.py	/^    def fetchPrjList(info, ret):$/;"	f	function:runLable
+getCheckoutUrl	download_lable.py	/^    def getCheckoutUrl(prjInfo, ret):$/;"	f	function:runProject
+getCloneUrl	download_lable.py	/^    def getCloneUrl(prjInfo, ret):$/;"	f	function:runProject
+getHomeUrl	download_lable.py	/^    def getHomeUrl(prjInfo, ret):$/;"	f	function:runProject
+getSearchUrl	download_lable.py	/^    def getSearchUrl(lableInfo, ret):$/;"	f	function:runLable
+getText	download_lable.py	/^    def getText(node):$/;"	f	function:runProject
+init	download_lable.py	/^def init(ret):$/;"	f
+is_alphabet	download_lable.py	/^def is_alphabet(uchar):$/;"	f
+is_ascii	download_lable.py	/^def is_ascii(uchar):$/;"	f
+is_chinese	download_lable.py	/^def is_chinese(uchar):$/;"	f
+is_fetch_char	download_lable.py	/^def is_fetch_char(uchar):$/;"	f
+is_number	download_lable.py	/^def is_number(uchar):$/;"	f
+main	download_lable.py	/^def main():$/;"	f
+myrand	download_lable.py	/^def myrand():$/;"	f
+rand_ip	download_lable.py	/^def rand_ip():$/;"	f
+readLableInfo	download_lable.py	/^    def readLableInfo(lableInfo, ret):$/;"	f	function:runLable
+readProjectInfo	download_lable.py	/^    def readProjectInfo(prjInfo, ret):$/;"	f	function:runProject
+runLable	download_lable.py	/^def runLable(ret):$/;"	f
+runProject	download_lable.py	/^def runProject(ret):$/;"	f
+saveLableInfo	download_lable.py	/^    def saveLableInfo(info, ret):$/;"	f	function:runLable
+savePrj	download_lable.py	/^def savePrj(prj, ret):$/;"	f
+updateLable	download_lable.py	/^    def updateLable(info, ret):$/;"	f	function:runLable
+useragent	download_lable.py	/^useragent = {$/;"	v
