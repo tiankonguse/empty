@@ -28,6 +28,9 @@ import socket
 import re
 from bs4 import BeautifulSoup
 
+import fcntl  
+
+
 useragent = {
     'User-Agent':'Mozilla/5.0 ( Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36',
     'X-Forwarde-For':'127.0.0.1',
@@ -59,7 +62,9 @@ SEARCH_URL = 'https://code.google.com/hosting/search?q=label:%s&filter=0&mode=&s
 HOME_URL = 'https://code.google.com/p/%s/'
 CHECKOUT_URL = 'https://code.google.com/p/%s/source/checkout'
 CLONE_URL = 'https://code.google.com/r/%s/source/clones'
-MEMBER_LIST_URL = 'https://code.google.com/p/%s/people/list' 
+MEMBER_LIST_URL = 'https://code.google.com/p/%s/people/list?num=5000&start=0' 
+
+HTTP_CODE = [404, 403, 500]
 
 def init ( ret):
 
@@ -89,13 +94,13 @@ def download ( info, ret):
         url = info["url"]
         useragent['X-Forwarde-For'] = rand_ip ( )
         req = urllib2.Request ( url, None, useragent)
-        info["content"] = urllib2.urlopen ( req).read()
+        info["content"] = urllib2.urlopen ( req,  timeout=5).read()
 
     except urllib2.HTTPError, e:
         ret["code"] = -1
         ret["msg"] = ( '(%s)http request error code - %s.' % (url, e.code))
-        if e.code == 404:
-            ret["code"] = 404
+        if e.code in HTTP_CODE:
+            ret["code"] = e.code
             
     except urllib2.URLError, e:
         ret["code"] = -1
@@ -322,8 +327,9 @@ def updateLable ( info, ret):
         id = info["id"]
         nowNum = info["nowNum"]
         maxNum = info["maxNum"]
+        ok = info["ok"]
 
-        sql = ( "update d_google_code_backup.t_lable set c_search_page = %d , c_max_num = %d where c_id = %d;" % (nowNum, maxNum, id))
+        sql = ( "update d_google_code_backup.t_lable set c_search_page = %d , c_max_num = %d, c_ok = %d where c_id = %d;" % (nowNum, maxNum, ok, id))
         logging.debug ( sql)
         cur.execute ( sql)
         conn.commit ( )
@@ -346,11 +352,12 @@ def updateProject ( info, ret):
         starNum = info["starNum"]
         memberNum = info["memberNum"]
         clones = info["clones"]
+        ok = info["ok"]
         checkout = conn.escape_string ( info["checkout"])
         desc = conn.escape_string ( (info["desc"]))
         parent = conn.escape_string ( (info["parent"]))
 
-        sql = ( "UPDATE `d_google_code_backup`.`t_project` SET `c_starred_num`=%d, `c_members_num`=%d, `c_ok`=1, `c_clones`=%d, `c_checkout`='%s', `c_desc`='%s', `c_parent`='%s' WHERE `c_id`=%d;" % (starNum, memberNum, clones, checkout, desc, parent, id))
+        sql = ( "UPDATE `d_google_code_backup`.`t_project` SET `c_starred_num`=%d, `c_members_num`=%d, `c_ok`=%d, `c_clones`=%d, `c_checkout`='%s', `c_desc`='%s', `c_parent`='%s' WHERE `c_id`=%d;" % (starNum, memberNum, ok,  clones, checkout, desc, parent, id))
         logging.debug ( sql)
         cur.execute ( sql)
         conn.commit ( )
@@ -365,6 +372,7 @@ def updateProject ( info, ret):
 def runLable ( ret):
     lableInfo = {
         "id" : 0,
+        "ok" : 0,
         "lableName" : "",
         "nowNum" : 0,
         "maxNum" : 0,
@@ -379,14 +387,17 @@ def runLable ( ret):
             dbcfg = GOOGLE_CODE_DBCFG
             conn = MySQLdb.connect ( host=dbcfg["host"], user=dbcfg["user"], passwd=dbcfg["passwd"], db=dbcfg["db"], port=dbcfg["port"], charset='utf8')
             cur = conn.cursor ( )
-            sql = "SELECT c_id, c_name, c_search_page, c_max_num FROM d_google_code_backup.t_lable where c_max_num = 0 or c_search_page < c_max_num limit 1;"
+            sql = "SELECT c_id as id, c_name as name, c_search_page as nowNum, c_max_num as maxNum FROM d_google_code_backup.t_lable where (c_max_num = 0 or c_search_page < c_max_num) and c_ok = 0 limit 1;"
             cur.execute ( sql)
             results = cur.fetchall ( )
+            field_names = [ i[0] for i in cur.description ]
+            
             for x in results:
-                lableInfo["id"] = x[0]
-                lableInfo["lableName"] = x[1]
-                lableInfo["nowNum"] = x[2]
-                lableInfo["maxNum"] = x[3]
+                d = dict ( zip(field_names, list(x)))
+                lableInfo["id"] = d["id"]
+                lableInfo["lableName"] = d["name"]
+                lableInfo["nowNum"] = d["nowNum"]
+                lableInfo["maxNum"] = d["maxNum"]
 
             if lableInfo["id"] == 0:
                 ret["code"] = -2
@@ -407,10 +418,12 @@ def runLable ( ret):
     def fetchPrjList ( info, ret):
         prjList = info["prjList"]
         soup = BeautifulSoup ( info["content"])
-
+        info["content"] = ""
+        
         if info["maxNum"] == 0:
             tdList = soup.find ( attrs={"class": "mainhdr"}).findAll("td")
             if len ( tdList) == 0:
+                info["ok"] = 1
                 return
             info["maxNum"] = tdList[1].string.strip ( ).split(' ')[-1]
             info["maxNum"] = int ( info["maxNum"])
@@ -453,7 +466,6 @@ def runLable ( ret):
 
 
     def saveLableInfo ( info, ret):
-
         lableName = info["lableName"]
 
         prjList = info["prjList"]
@@ -483,28 +495,34 @@ def runLable ( ret):
     if ret["code"] != 0:
         print ret
         return
-
+    
 
     print "getSearchUrl begin ",time.asctime ( time.localtime(time.time()) )
     getSearchUrl ( lableInfo, ret)
     if ret["code"] != 0:
         print ret
         return
-        
+    #print lableInfo
     
     print "download begin ",time.asctime ( time.localtime(time.time()) )
     download ( lableInfo, ret)
-    if not (ret["code"] == 0 or ret["code"] == 404):
+    if not (ret["code"] == 0 or ret["code"] in HTTP_CODE):
         print ret
         return
+    else:
+        lableInfo["ok"] = 1
     
-    if ret["code"] != 404:
+    if (ret["code"] not in HTTP_CODE) or lableInfo["ok"] == 1:
         print "fetchPrjList begin ",time.asctime ( time.localtime(time.time()) )
         fetchPrjList ( lableInfo, ret)
         if ret["code"] != 0:
             print ret
             return
+    else:
+        lableInfo["ok"] = 1
     ret["code"] = 0
+    
+    #print lableInfo
     
     print "saveLableInfo begin ",time.asctime ( time.localtime(time.time()) )
     saveLableInfo ( lableInfo, ret)
@@ -550,7 +568,7 @@ def runProject ( ret):
                 prjInfo["prjName"] = d["prjName"]
                 prjInfo["starNum"] = d["starNum"]
                 prjInfo["memberNum"] = d["memberNum"]
-                prjInfo["ok"] = d["ok"]
+                prjInfo["ok"] = 1
                 prjInfo["clones"] = d["clones"]
                 prjInfo["checkout"] = d["checkout"]
                 prjInfo["desc"] = d["description"]
@@ -588,12 +606,14 @@ def runProject ( ret):
             
         print "download begin ",time.asctime ( time.localtime(time.time()) )
         download ( prjInfo, ret)
-        if not (ret["code"] == 0 or ret["code"] == 404):
+        if not (ret["code"] == 0 or ret["code"] in HTTP_CODE):
             print ret
             return
         
-        if ret["code"] == 404:
+        if ret["code"] in HTTP_CODE:
+            # 404, 403
             ret["code"] = 0
+            prjInfo["ok"] = 2
             return
         print prjInfo["url"]
         prjInfo["url"] = ""
@@ -601,7 +621,10 @@ def runProject ( ret):
         soup = BeautifulSoup ( prjInfo["content"])
         prjInfo["content"] = ""
         
-        
+        if not soup.find ( id='pname'):
+            # move to github
+            prjInfo["ok"] = 2
+            return
                                
         starNode = soup.find ( id="star_count")
         if starNode and  prjInfo["starNum"] == 0:
@@ -635,17 +658,22 @@ def runProject ( ret):
             
         print "download begin ",time.asctime ( time.localtime(time.time()) )
         download ( prjInfo, ret)
-        if not (ret["code"] == 0 or ret["code"] == 404):
+        if not (ret["code"] == 0 or ret["code"] in HTTP_CODE):
             print ret
             return
+        print prjInfo["url"]
         prjInfo["url"] = ""
        
-        if ret["code"] == 404:
+        if ret["code"] in HTTP_CODE:
             ret["code"] = 0
             return
        
         soup = BeautifulSoup ( prjInfo["content"])
         prjInfo["content"] = ""
+        
+        if not soup.find ( id='pname'):
+            prjInfo["ok"] = 2
+            return
         
         prjInfo["checkout"] = getText ( soup.find(attrs={"id": "checkoutcmd"}))
     #end fetchCheckoutInfo
@@ -659,17 +687,23 @@ def runProject ( ret):
             
         print "download begin ",time.asctime ( time.localtime(time.time()) )
         download ( prjInfo, ret)
-        if not (ret["code"] == 0 or ret["code"] == 404):
+        if not (ret["code"] == 0 or ret["code"] in HTTP_CODE):
             print ret
             return
+        print prjInfo["url"]
         prjInfo["url"] = ""
         
-        if ret["code"] == 404:
+        if ret["code"] in HTTP_CODE:
             ret["code"] = 0
             return
         
         soup = BeautifulSoup ( prjInfo["content"])
         prjInfo["content"] = ""
+        
+        if not soup.find ( id='pname'):
+            prjInfo["ok"] = 2
+            return
+        
         
         resultstable = soup.find ( id='resultstable')
    
@@ -715,20 +749,23 @@ def runProject ( ret):
             
         print "download begin ",time.asctime ( time.localtime(time.time()) )
         download ( prjInfo, ret)
-        if not (ret["code"] == 0 or ret["code"] == 404):
+        if not (ret["code"] == 0 or ret["code"] in HTTP_CODE):
             print ret
             return
+        print prjInfo["url"]
         prjInfo["url"] = ""
         
-        if ret["code"] == 404:
+        if ret["code"] in HTTP_CODE:
             ret["code"] = 0
             return
         
         soup = BeautifulSoup ( prjInfo["content"])
         prjInfo["content"] = ""
         
-        memberNumNode = soup.find( attrs = {"class":"pagination"}).string.strip()
-        prjInfo["memberNum"] = int(memberNumNode.split(" ")[-1])
+        
+        if not soup.find ( id='pname'):
+            prjInfo["ok"] = 2
+            return
 
 
         tdListNode = soup.find(id='resultstable').find_all( attrs = {"class":"col_0"})
@@ -737,6 +774,13 @@ def runProject ( ret):
         for tdNode in tdListNode:
             memberList.append( tdNode.find("a")["href"].split("=")[-1])
         
+        paginationNode = soup.find( attrs = {"class":"pagination"})
+        if paginationNode.find("a"):
+            memberNum = len(memberList)
+        else:
+            memberNum = int(paginationNode.string.strip().split(" ")[-1])
+        prjInfo["memberNum"] = memberNum 
+
     #end fetchMemberList 
     
     
@@ -766,7 +810,6 @@ def runProject ( ret):
     #end updateCloneProject
     
     def saveProject( prjInfo, ret):
-        
         prjName = prjInfo["prjName"]
         
         lableList = prjInfo["lableList"]
@@ -804,26 +847,24 @@ def runProject ( ret):
 
     print "fetchHomeInfo begin ",time.asctime ( time.localtime(time.time()) )
     fetchHomeInfo ( prjInfo, ret)
-    if ret["code"] != 0:
-        print ret
-        return
-
-    print "fetchCheckoutInfo begin ",time.asctime ( time.localtime(time.time()) )
-    fetchCheckoutInfo ( prjInfo, ret)
-    if ret["code"] != 0:
-        print ret
-        return
-
-
-    print "fetchCloneInfo begin ",time.asctime ( time.localtime(time.time()) )
-    fetchCloneInfo ( prjInfo, ret)
-    if ret["code"] != 0:
-        print ret
-        return
-
-    print "fetchMemberList  begin ",time.asctime ( time.localtime(time.time()) )
-    fetchMemberList ( prjInfo, ret)
-    if ret["code"] != 0:
+    
+    
+    if ret["code"] == 0:
+        print "fetchCheckoutInfo begin ",time.asctime ( time.localtime(time.time()) )
+        fetchCheckoutInfo ( prjInfo, ret)
+        
+        
+        
+    if ret["code"] == 0:
+        print "fetchCloneInfo begin ",time.asctime ( time.localtime(time.time()) )
+        fetchCloneInfo ( prjInfo, ret)
+        
+        
+    if ret["code"] == 0:
+        print "fetchMemberList  begin ",time.asctime ( time.localtime(time.time()) )
+        fetchMemberList ( prjInfo, ret)
+        
+    if ret["code"] == -2:
         print ret
         return
 
@@ -858,12 +899,13 @@ def main ( ):
         realRun = 0 
         
         ret["code"] = 0
-        runLable ( ret)
-        if ret["code"] == -1:
-            print ret
-            return
-        elif ret["code"] == 0:
-            realRun = 1
+        #runLable ( ret)
+        #if ret["code"] == -1:
+        #    print ret
+        #    return
+        #elif ret["code"] == 0:
+        #    realRun = 1
+        
         
         ret["code"] = 0
         runProject ( ret)
@@ -876,8 +918,20 @@ def main ( ):
         if realRun == 0:
             print "search end"
             return
-        time.sleep ( 3)
+        time.sleep (0.001)
+        
 #end main
-
+def lockFile(lockfile):  
+    #fp = open(lockfile, 'w')  
+    fp = os.open(lockfile, os.O_CREAT | os.O_TRUNC | os.O_WRONLY)
+    try:  
+        fcntl.lockf(fp, fcntl.LOCK_EX | fcntl.LOCK_NB)  
+        print ("lockFile ok ")
+    except IOError, e:
+        print ("lockFile error %d=s %s" % (e.args[0], e.args[1]))
+        return False  
+    return True 
 if __name__ == "__main__":
+    if not lockFile(".lock.pid"):  
+        sys.exit(0) 
     main ( )
