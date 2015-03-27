@@ -49,6 +49,31 @@ Lucene最核心的特征是通过特殊的索引结构实现了传统数据库�
 ## 安装和使用
 
 
+下载 [lucene][lucene-core]  
+Lucene中的一些比较复杂的词法分析是用 JavaCC 生成的。  
+所以如果从源代码编译或需要修改其中的QueryParser、定制自己的词法分析器，还需要安装 JavaCC。  
+
+
+lucene的组成结构：对于外部应用来说索引模块(index)和检索模块(search)是主要的外部应用入口  
+
+
+org.apache.Lucene.search/	搜索入口
+org.apache.Lucene.index/	索引入口
+org.apache.Lucene.analysis/	语言分析器
+org.apache.Lucene.queryParser/	查询分析器
+org.apache.Lucene.document/	存储结构
+org.apache.Lucene.store/ 	底层IO/存储结构
+org.apache.Lucene.util/	一些公用的数据结构
+
+
+
+
+
+
+
+
+
+
 
 
 [lucene-core]: http://lucene.apache.org/core/
