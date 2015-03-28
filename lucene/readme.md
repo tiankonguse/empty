@@ -77,4 +77,4 @@ org.apache.Lucene.util/	一些公用的数据结构
 
 
 [lucene-core]: http://lucene.apache.org/core/
-
+[chedong-lucene]: http://www.chedong.com/tech/lucene.html
