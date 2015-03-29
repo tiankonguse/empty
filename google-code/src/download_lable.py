@@ -64,7 +64,8 @@ CHECKOUT_URL = 'https://code.google.com/p/%s/source/checkout'
 CLONE_URL = 'https://code.google.com/r/%s/source/clones'
 MEMBER_LIST_URL = 'https://code.google.com/p/%s/people/list?num=5000&start=0' 
 
-HTTP_CODE = [404, 403, 500]
+HTTP_CODE = [404, 403, 500, 301]
+HTTP_CORE_DOWN = [301]
 
 def init ( ret):
 
@@ -94,7 +95,7 @@ def download ( info, ret):
         url = info["url"]
         useragent['X-Forwarde-For'] = rand_ip ( )
         req = urllib2.Request ( url, None, useragent)
-        info["content"] = urllib2.urlopen ( req,  timeout=5).read()
+        info["content"] = urllib2.urlopen ( req,  timeout=2).read()
 
     except urllib2.HTTPError, e:
         ret["code"] = -1
@@ -557,7 +558,8 @@ def runProject ( ret):
             dbcfg = GOOGLE_CODE_DBCFG
             conn = MySQLdb.connect ( host=dbcfg["host"], user=dbcfg["user"], passwd=dbcfg["passwd"], db=dbcfg["db"], port=dbcfg["port"], charset='utf8')
             cur = conn.cursor ( )
-            sql = "SELECT c_id as id, c_name as prjName,c_starred_num as starNum,c_members_num as memberNum,c_ok as ok,c_clones as clones,c_checkout as checkout,c_desc as description FROM d_google_code_backup.t_project where c_ok = 0 and c_clones = 0 and c_parent = '' limit 1;"
+            #sql = "SELECT c_id as id, c_name as prjName,c_starred_num as starNum,c_members_num as memberNum,c_ok as ok,c_clones as clones,c_checkout as checkout,c_desc as description FROM d_google_code_backup.t_project where c_ok = 0 and c_clones = 0 and c_parent = '' limit 1;"
+            sql = "SELECT c_id as id, c_name as prjName,c_starred_num as starNum,c_members_num as memberNum,c_ok as ok,c_clones as clones,c_checkout as checkout,c_desc as description FROM d_google_code_backup.t_project where c_ok in (1,2) and c_checkout='' and c_parent='' limit 1;"
             cur.execute ( sql)
             results = cur.fetchall ( )
             
@@ -613,7 +615,7 @@ def runProject ( ret):
         if ret["code"] in HTTP_CODE:
             # 404, 403
             ret["code"] = 0
-            prjInfo["ok"] = 2
+            prjInfo["ok"] = ret["code"]
             return
         print prjInfo["url"]
         prjInfo["url"] = ""
@@ -623,7 +625,7 @@ def runProject ( ret):
         
         if not soup.find ( id='pname'):
             # move to github
-            prjInfo["ok"] = 2
+            prjInfo["ok"] = -1
             return
                                
         starNode = soup.find ( id="star_count")
@@ -665,6 +667,7 @@ def runProject ( ret):
         prjInfo["url"] = ""
        
         if ret["code"] in HTTP_CODE:
+            prjInfo["ok"] = ret["code"]
             ret["code"] = 0
             return
        
@@ -672,7 +675,7 @@ def runProject ( ret):
         prjInfo["content"] = ""
         
         if not soup.find ( id='pname'):
-            prjInfo["ok"] = 2
+            prjInfo["ok"] = -1
             return
         
         prjInfo["checkout"] = getText ( soup.find(attrs={"id": "checkoutcmd"}))
@@ -694,6 +697,7 @@ def runProject ( ret):
         prjInfo["url"] = ""
         
         if ret["code"] in HTTP_CODE:
+            prjInfo["ok"] = ret["code"]
             ret["code"] = 0
             return
         
@@ -701,7 +705,7 @@ def runProject ( ret):
         prjInfo["content"] = ""
         
         if not soup.find ( id='pname'):
-            prjInfo["ok"] = 2
+            prjInfo["ok"] = -1
             return
         
         
@@ -756,6 +760,7 @@ def runProject ( ret):
         prjInfo["url"] = ""
         
         if ret["code"] in HTTP_CODE:
+            prjInfo["ok"] = ret["code"]
             ret["code"] = 0
             return
         
@@ -764,7 +769,7 @@ def runProject ( ret):
         
         
         if not soup.find ( id='pname'):
-            prjInfo["ok"] = 2
+            prjInfo["ok"] = -1
             return
 
 
@@ -848,21 +853,27 @@ def runProject ( ret):
     print "fetchHomeInfo begin ",time.asctime ( time.localtime(time.time()) )
     fetchHomeInfo ( prjInfo, ret)
     
-    
-    if ret["code"] == 0:
-        print "fetchCheckoutInfo begin ",time.asctime ( time.localtime(time.time()) )
-        fetchCheckoutInfo ( prjInfo, ret)
-        
-        
-        
-    if ret["code"] == 0:
-        print "fetchCloneInfo begin ",time.asctime ( time.localtime(time.time()) )
-        fetchCloneInfo ( prjInfo, ret)
-        
-        
-    if ret["code"] == 0:
+    if ret["code"] == 0 and prjInfo["ok"] not in HTTP_CORE_DOWN:
         print "fetchMemberList  begin ",time.asctime ( time.localtime(time.time()) )
         fetchMemberList ( prjInfo, ret)
+    else:
+        print ret
+    
+    
+    if ret["code"] == 0 and prjInfo["ok"] not in HTTP_CORE_DOWN :
+        print "fetchCheckoutInfo begin ",time.asctime ( time.localtime(time.time()) )
+        fetchCheckoutInfo ( prjInfo, ret)
+    else:
+        print ret
+        
+        
+    if ret["code"] == 0 and prjInfo["ok"] not in HTTP_CORE_DOWN:
+        print "fetchCloneInfo begin ",time.asctime ( time.localtime(time.time()) )
+        fetchCloneInfo ( prjInfo, ret)
+    else:
+        print ret
+        
+        
         
     if ret["code"] == -2:
         print ret
