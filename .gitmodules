@@ -4,3 +4,6 @@
 [submodule "git"]
 	path = git
 	url = https://github.com/tiankonguse/git-study.git
+[submodule "bash"]
+	path = bash
+	url = https://github.com/tiankonguse/bash-study.git
