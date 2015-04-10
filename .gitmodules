@@ -1,3 +1,6 @@
 [submodule "vim"]
 	path = vim
 	url = https://github.com/tiankonguse/VIM-study.git
+[submodule "git"]
+	path = git
+	url = https://github.com/tiankonguse/git-study.git
