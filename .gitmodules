@@ -1,0 +1,3 @@
+[submodule "VIM-study"]
+	path = vim
+	url = https://github.com/tiankonguse/VIM-study.git 
