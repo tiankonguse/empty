@@ -7,3 +7,6 @@
 [submodule "bash"]
 	path = bash
 	url = https://github.com/tiankonguse/bash-study.git
+[submodule "link"]
+	path = link
+	url = https://github.com/tiankonguse/everyday-bookmarks.git
