@@ -211,6 +211,200 @@ Hello, world.
 
 ### 列表
 
+HTML 提供了一些简单的方法来显示数字列表和无序列表。  
+
+分别使用　`<ol>` 和　`<ul>` 容器标签来生成有序或者无序列表。  
+
+在容器标签中，使用`<li>`标签来表示列表的一项内容。  
+
+例如下面的HTML代码  
+
+
+```
+This is an ordered list:
+<ol>
+<li>First item
+<li>Second item
+<li>Third item
+</ol>
+
+This is an unordered list:
+<ul>
+<li>First item
+<li>Second item
+<li>Third item
+</ul>
+```
+
+将会显示如下  
+
+This is an ordered list:
+<ol>
+<li>First item
+<li>Second item
+<li>Third item
+</ol>
+
+This is an unordered list:
+<ul>
+<li>First item
+<li>Second item
+<li>Third item
+</ul>
+
+请确保使用闭合标签`</ol>`,`</ul>`和`</dl>`，否则页面剩下将会都是列表中最后一项。  
+
+### 注释
+
+你可以把注释内容放到HTML页面中，这些注释不会显示出来的。  
+这些注释主要为了向那些看你HTML源代码的人解释你为什么样这样写你的代码。  
+那个看代码的人可能是别人，但是在未来，更有可能是你。  
+
+使用　`<!--` 开始注释，使用`-->`结束注释。  
+
+例如  
+
+```
+<!-- This is a comment, and won't display to the user -->
+<!-- comment examples inserted by JSM on 9-23-96, for clarity -->
+```
+
+不要把私有信息放到注释里，因为任何看源代码的人都能看到那些。  
+特别注意，不要把　HTML标签放到注释里，因为大多数浏览器会把　`>` 符号当做结束标签。  
+
+### 表格
+
+
+就像上面的更多标签一样，HTML的表格标签可以让你把数据单元以数组的形式展现。  
+使用这个可以让文本右对齐或者像购物商店的页卡一样一列一列的排列在那里。  
+只要你明白你想在每个单元格里显示什么，表格将会很容易使用的。  
+HTML的表格定义规范虽然有些改变，但是现在它已经十分稳定了。  
+接下来将会告诉你怎么制作所有浏览器都兼容的表格。  
+
+* 表格需要使用标签`<table>`  
+* 在表格`<table>`的每一行里需要使用标签`<tr>`  
+* 在行标签`<tr>`里面，所有的单元格需要使用标签`<td>`  
+* 每一个单元格可以包含你想展示的任何东西-链接，图片，列表或者其他表格。  
+
+
+行标签从上到下展示，单元格心欧诺个左到右展示。  
+如果你想让单元格里的内容比较突出，可以使用表格`<table>`的`border`属性。  
+
+样例如下  
+
+
+```
+<table border>
+<tr>
+    <td>northwest</td>
+    <td>northeast</td>
+</tr>
+<tr>
+    <td>southwest</td>
+    <td>southeast</td>
+</tr>
+</table>
+```
+
+
+将会显示为  
+
+<table border>
+<tr>
+    <td>northwest</td>
+    <td>northeast</td>
+</tr>
+<tr>
+    <td>southwest</td>
+    <td>southeast</td>
+</tr>
+</table>
+
+
+大多说浏览器不需要`</td>`和`</tr>`标签。  
+因为他们假设遇到下一个单元格和行标签的开始符号时，可以认为上一个标签结束了。  
+
+所以你可能会遇到没有带结束标签的表格。  
+
+译者注：不过这里建议所有的标签都加上结束标签。  
+
+### 跨越多行或多列的单元格
+
+有时候，你可能想要让一个单元格占用多行或者多列。  
+这个时候，你就可以使用`<td>`标签的`colspan`或者`rowspan`属性,然后只需要不去定义单元格可能会占用的单元格即可。  
+
+例如  
+
+```
+<table border>
+<tr>
+    <td rowspan=2>west</td>
+    <td>northeast</td>
+</tr>
+<tr>
+    <!-- Don't define "southwest", since it's overlaid by "west" -->
+    <td>southeast</td>
+</tr>
+</table>
+```
+
+将会显示如下  
+
+<table border>
+<tr>
+    <td rowspan=2>west</td>
+    <td>northeast</td>
+</tr>
+<tr>
+    <!-- Don't define "southwest", since it's overlaid by "west" -->
+    <td>southeast</td>
+</tr>
+</table>
+
+
+### 在单元格内内容对齐
+
+通常，所有的内容会左对齐和垂直居中对齐。  
+在`<td>`标签内使用`aligh`和`valign`可以实现水平对齐和垂直对齐。  
+
+* `aligh` 的值可以是`left`，`right`，`center`。  
+* `valign`的值可以是`top`，`middle`，`bottom`，`baseline`。  
+
+
+比如这个，无边框的杂货店收据的价格就是右对齐的。  
+
+```
+<table>
+<tr>
+    <td>laundry detergent</td>
+    <td align=right>$4.99</td>
+</tr>
+<tr>
+    <td>cat food</td>
+    <td align=right>$128.00</td>
+</tr>
+</table>
+```
+
+显示如下  
+
+<table>
+<tr>
+    <td>laundry detergent</td>
+    <td align=right>$4.99</td>
+</tr>
+<tr>
+    <td>cat food</td>
+    <td align=right>$128.00</td>
+</tr>
+</table>
+
+当然，你也可以把`aligh`和`valign`属性加到`<tr>`上来影响一行的所有的单元格。  
+
+### 表单
+
+
+
 ## HTML 技巧
 
 ## HTML 资料
