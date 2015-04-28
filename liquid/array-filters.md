@@ -125,7 +125,7 @@ SpringSummerFallWinter
 ## sort
 
 
-
+根据数组中元素指定的属性来对数组排序。  
 
 
 ```
@@ -135,6 +135,8 @@ SpringSummerFallWinter
 {% endfor %}
 ```
 
+排序是大小写敏感的。  
+
 ```
 <!-- products = "a", "b", "A", "B" -->
 {% assign products = collection.products | sort: 'title' %}
@@ -143,6 +145,7 @@ SpringSummerFallWinter
 {% endfor %}
 ```
 
+输出如下  
 
 ```
 A B a b
