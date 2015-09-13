@@ -942,6 +942,7 @@ def lockFile(lockfile):
         print ("lockFile error %d=s %s" % (e.args[0], e.args[1]))
         return False  
     return True 
+    
 if __name__ == "__main__":
     if not lockFile(".lock.pid"):  
         sys.exit(0) 
