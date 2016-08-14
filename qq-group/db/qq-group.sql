@@ -53,91 +53,21 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
+-- -----------------------------------------------------
+-- Table `d_qq`.`t_people_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `d_qq`.`t_people_info` (
+  `c_card_id` VARCHAR(32) NOT NULL,
+  `c_name` VARCHAR(45) NOT NULL,
+  `c_sex` VARCHAR(45) NOT NULL,
+  `c_aAddress` VARCHAR(256) NOT NULL,
+  `c_mobile` VARCHAR(45) NOT NULL,
+  `c_eMail` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`c_card_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
-
-
-CREATE TABLE `t_qq_info_0` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_1` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_2` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_3` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_4` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_5` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_6` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_7` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_8` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_info_9` (`c_qq` bigint(20) NOT NULL,`c_nick` varchar(45) DEFAULT NULL,`c_sex` varchar(45) DEFAULT NULL,`c_state` int(11) NOT NULL DEFAULT '0',PRIMARY KEY (`c_qq`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-
-
-CREATE TABLE `t_group_info_0` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_1` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_2` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_3` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_4` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_5` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_6` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_7` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_8` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_info_9` (`c_group` bigint(20) NOT NULL,`c_group_name` varchar(45) DEFAULT NULL,`c_group_info` varchar(255) DEFAULT NULL,`c_state` int(11) NOT NULL,PRIMARY KEY (`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-CREATE TABLE `t_qq_to_group_0` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_1` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_2` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_3` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_4` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_5` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_6` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_7` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_8` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_qq_to_group_9` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-
-
-
-CREATE TABLE `t_group_to_qq_0` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_1` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_2` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_3` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_4` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_5` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_6` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_7` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_8` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `t_group_to_qq_9` (`c_qq` bigint(20) NOT NULL,`c_group` bigint(20) NOT NULL,`c_group_nick` varchar(45) NOT NULL,`t_group_role` varchar(45) NOT NULL,`t_group_sex` varchar(45) NOT NULL,PRIMARY KEY (`c_qq`,`c_group`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

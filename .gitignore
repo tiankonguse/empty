@@ -108,3 +108,7 @@ $RECYCLE.BIN/
 .coverage
 .tox
 *.mo
+*.pid
+qq-group/data/*
+qq-group/log/*
+
