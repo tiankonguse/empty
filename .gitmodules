@@ -10,3 +10,6 @@
 [submodule "link"]
 	path = link
 	url = https://github.com/tiankonguse/everyday-bookmarks.git
+[submodule "threadPoll"]
+	path = threadPoll
+	url = https://github.com/tiankonguse/threadPoll.git
