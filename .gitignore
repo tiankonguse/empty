@@ -112,3 +112,5 @@ $RECYCLE.BIN/
 qq-group/data/*
 qq-group/log/*
 
+doc/autodata.md
+doc/wiki.md
