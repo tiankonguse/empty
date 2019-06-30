@@ -89,5 +89,5 @@ _commit "$varupdate";
 
 _push "$varmaster";
 
-_push "--tag";
+#_push "--tag";
 
